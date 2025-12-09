@@ -125,7 +125,7 @@ You can add swift-sharing-extensions to an Xcode project by adding it as a packa
 
 ### Recommended
 
-If you use SwiftPM for your project structure, add DeclarativeConfiguration to your package file. 
+If you use SwiftPM for your project structure, add SharingExtensions to your package file. 
 
 ```swift
 .package(
