@@ -3,7 +3,7 @@ import SharingKeysCore
 import _SharingKeysTesting
 
 @Suite
-struct InMemoryStorageKeysTests {
+struct AppStorageKeysTests {
 	@Test
 	func live() {
 		#expect(AppStorageKeys[\.someDomain.childDomain.someEntry1] == "some_domain-child_domain-some_entry_1")
