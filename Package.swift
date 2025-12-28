@@ -26,8 +26,9 @@ let package = Package(
 			.upToNextMajor(from: "2.5.0")
 		),
 		.package(
-			url: "https://github.com/capturecontext/swift-casification.git",
-			.upToNextMinor(from: "0.0.1")
+			path: "../swift-casification",
+			// url: "https://github.com/capturecontext/swift-casification.git",
+			// .upToNextMinor(from: "0.0.1")
 		),
 	],
 	targets: [
