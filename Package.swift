@@ -22,8 +22,9 @@ let package = Package(
 	],
 	dependencies: [
 		.package(
-			url: "https://github.com/pointfreeco/swift-sharing.git",
-			.upToNextMajor(from: "2.5.0")
+			path: "../swift-sharing",
+			// url: "https://github.com/pointfreeco/swift-sharing.git",
+			// .upToNextMajor(from: "2.5.0")
 		),
 		.package(
 			path: "../swift-casification",
