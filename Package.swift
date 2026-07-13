@@ -12,6 +12,10 @@ let package = Package(
 	],
 	products: [
 		.library(
+			name: "SharingExtensions",
+			targets: ["SharingExtensions"]
+		),
+		.library(
 			name: "SharingKeys",
 			targets: ["SharingKeys"]
 		),
@@ -34,9 +38,21 @@ let package = Package(
 	],
 	targets: [
 		.target(
+			name: "SharingExtensions",
+			dependencies: [
+				.target(
+					name: "SharingKeys",
+					condition: nil
+				),
+			]
+		),
+		.target(
 			name: "SharingKeys",
 			dependencies: [
-				.target(name: "SharingKeysCore"),
+				.target(
+					name: "SharingKeysCore",
+					condition: nil
+				),
 				.product(
 					name: "Sharing",
 					package: "swift-sharing"
@@ -55,22 +71,37 @@ let package = Package(
 		.target(
 			name: "_SharingKeysTesting",
 			dependencies: [
-				.target(name: "SharingKeysCore"),
+				.target(
+					name: "SharingKeysCore",
+					condition: nil
+				),
 			],
 			path: "Tests/_SharingKeysTesting"
 		),
 		.testTarget(
 			name: "SharingKeysTests",
 			dependencies: [
-				.target(name: "SharingKeys"),
-				.target(name: "_SharingKeysTesting"),
+				.target(
+					name: "SharingKeys",
+					condition: nil
+				),
+				.target(
+					name: "_SharingKeysTesting",
+					condition: nil
+				),
 			]
 		),
 		.testTarget(
 			name: "SharingKeysCoreTests",
 			dependencies: [
-				.target(name: "SharingKeysCore"),
-				.target(name: "_SharingKeysTesting"),
+				.target(
+					name: "SharingKeysCore",
+					condition: nil
+				),
+				.target(
+					name: "_SharingKeysTesting",
+					condition: nil
+				),
 			]
 		),
 	]
