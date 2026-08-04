@@ -1,0 +1,120 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.3.3 (swiftlang-6.3.3.1.3 clang-2100.1.1.101)
+// swift-module-flags: -target arm64-apple-tvos13.0-simulator -enable-objc-interop -swift-version 6 -O -module-name SharingKeys -package-name swift_sharing_extensions
+// swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.3.3
+import Foundation
+import Sharing
+@_exported import SharingKeysCore
+import Swift
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+extension Sharing.AppStorageKey {
+  public static var appStorage: SharingKeysCore.StorageKeyBuilder<SharingKeysCore.AppStorageKeys> {
+    get
+  }
+  public static subscript(keyPath: Swift.KeyPath<Sharing.AppStorageKey<Value>.Type, SharingKeysCore.StorageKeyEntry>) -> Swift.String {
+    get
+  }
+  public static subscript(keyPath: Swift.KeyPath<Sharing.AppStorageKey<Value>.Type, SharingKeysCore.StorageKeyEntry.Strict<Value>>) -> Swift.String {
+    get
+  }
+}
+public protocol AppStorageKeyCompatible {
+  static func makeAppStorageKey(for key: Swift.String, store: Foundation.UserDefaults?) -> Sharing.AppStorageKey<Self>
+}
+public protocol OptionallyAppStorageKeyCompatible {
+  static func makeOptionalAppStorageKey(for key: Swift.String, store: Foundation.UserDefaults?) -> Sharing.AppStorageKey<Swift.Optional<Self>>
+}
+public protocol RawRepresentableAppStorageKeyCompatible {
+  static func makeRawRepresentableAppStorageKey<T>(for key: Swift.String, store: Foundation.UserDefaults?) -> Sharing.AppStorageKey<T> where Self == T.RawValue, T : Swift.RawRepresentable, T : Swift.Sendable
+}
+public protocol OptionallyRawRepresentableAppStorageKeyCompatible {
+  static func makeOptionalRawRepresentableAppStorageKey<T>(for key: Swift.String, store: Foundation.UserDefaults?) -> Sharing.AppStorageKey<Swift.Optional<T>> where Self == T.RawValue, T : Swift.RawRepresentable, T : Swift.Sendable
+}
+extension Swift.Optional : SharingKeys.AppStorageKeyCompatible where Wrapped : SharingKeys.OptionallyAppStorageKeyCompatible {
+  public static func makeAppStorageKey(for key: Swift.String, store: Foundation.UserDefaults?) -> Sharing.AppStorageKey<Swift.Optional<Wrapped>>
+}
+extension Swift.Bool : SharingKeys.AppStorageKeyCompatible, SharingKeys.OptionallyAppStorageKeyCompatible {
+  public static func makeAppStorageKey(for key: Swift.String, store: Foundation.UserDefaults?) -> Sharing.AppStorageKey<Swift.Bool>
+  public static func makeOptionalAppStorageKey(for key: Swift.String, store: Foundation.UserDefaults?) -> Sharing.AppStorageKey<Swift.Bool?>
+}
+extension Swift.Int {
+  public typealias OptionalAppStorageRawRepresentationTarget = Swift.Int
+  public static func makeAppStorageKey(for key: Swift.String, store: Foundation.UserDefaults?) -> Sharing.AppStorageKey<Swift.Int>
+  public static func makeOptionalAppStorageKey(for key: Swift.String, store: Foundation.UserDefaults?) -> Sharing.AppStorageKey<Swift.Int?>
+  public static func makeRawRepresentableAppStorageKey<T>(for key: Swift.String, store: Foundation.UserDefaults?) -> Sharing.AppStorageKey<T> where T : Swift.RawRepresentable, T : Swift.Sendable, T.RawValue == Swift.Int
+  public static func makeOptionalRawRepresentableAppStorageKey<T>(for key: Swift.String, store: Foundation.UserDefaults?) -> Sharing.AppStorageKey<T?> where T : Swift.RawRepresentable, T : Swift.Sendable, T.RawValue == Swift.Int
+}
+extension Swift.Double : SharingKeys.AppStorageKeyCompatible, SharingKeys.OptionallyAppStorageKeyCompatible {
+  public static func makeAppStorageKey(for key: Swift.String, store: Foundation.UserDefaults?) -> Sharing.AppStorageKey<Swift.Double>
+  public static func makeOptionalAppStorageKey(for key: Swift.String, store: Foundation.UserDefaults?) -> Sharing.AppStorageKey<Swift.Double?>
+}
+extension Swift.String {
+  public typealias OptionalAppStorageRawRepresentationTarget = Swift.String
+  public static func makeAppStorageKey(for key: Swift.String, store: Foundation.UserDefaults?) -> Sharing.AppStorageKey<Swift.String>
+  public static func makeOptionalAppStorageKey(for key: Swift.String, store: Foundation.UserDefaults?) -> Sharing.AppStorageKey<Swift.String?>
+  public static func makeRawRepresentableAppStorageKey<T>(for key: Swift.String, store: Foundation.UserDefaults?) -> Sharing.AppStorageKey<T> where T : Swift.RawRepresentable, T : Swift.Sendable, T.RawValue == Swift.String
+  public static func makeOptionalRawRepresentableAppStorageKey<T>(for key: Swift.String, store: Foundation.UserDefaults?) -> Sharing.AppStorageKey<T?> where T : Swift.RawRepresentable, T : Swift.Sendable, T.RawValue == Swift.String
+}
+extension Foundation.URL : SharingKeys.AppStorageKeyCompatible, SharingKeys.OptionallyAppStorageKeyCompatible {
+  public static func makeAppStorageKey(for key: Swift.String, store: Foundation.UserDefaults?) -> Sharing.AppStorageKey<Foundation.URL>
+  public static func makeOptionalAppStorageKey(for key: Swift.String, store: Foundation.UserDefaults?) -> Sharing.AppStorageKey<Foundation.URL?>
+}
+extension Foundation.Data : SharingKeys.AppStorageKeyCompatible, SharingKeys.OptionallyAppStorageKeyCompatible {
+  public static func makeAppStorageKey(for key: Swift.String, store: Foundation.UserDefaults?) -> Sharing.AppStorageKey<Foundation.Data>
+  public static func makeOptionalAppStorageKey(for key: Swift.String, store: Foundation.UserDefaults?) -> Sharing.AppStorageKey<Foundation.Data?>
+}
+extension Foundation.Date : SharingKeys.AppStorageKeyCompatible, SharingKeys.OptionallyAppStorageKeyCompatible {
+  public static func makeAppStorageKey(for key: Swift.String, store: Foundation.UserDefaults?) -> Sharing.AppStorageKey<Foundation.Date>
+  public static func makeOptionalAppStorageKey(for key: Swift.String, store: Foundation.UserDefaults?) -> Sharing.AppStorageKey<Foundation.Date?>
+}
+extension Sharing.Shared where Value : SharingKeys.AppStorageKeyCompatible, Value : Swift.Sendable {
+  public init(wrappedValue: Value, _ key: Swift.KeyPath<Sharing.AppStorageKey<Value>.Type, SharingKeysCore.StorageKeyEntry>, store: Foundation.UserDefaults? = nil)
+  public init(wrappedValue: Value, _ key: Swift.KeyPath<Sharing.AppStorageKey<Value>.Type, SharingKeysCore.StorageKeyEntry.Strict<Value>>, store: Foundation.UserDefaults? = nil)
+}
+extension Sharing.Shared where Value : Swift.RawRepresentable, Value : Swift.Sendable {
+  public init(wrappedValue: Value, _ key: Swift.KeyPath<Sharing.AppStorageKey<Value>.Type, SharingKeysCore.StorageKeyEntry>, store: Foundation.UserDefaults? = nil) where Value.RawValue : SharingKeys.RawRepresentableAppStorageKeyCompatible
+  public init(wrappedValue: Value, _ key: Swift.KeyPath<Sharing.AppStorageKey<Value>.Type, SharingKeysCore.StorageKeyEntry.Strict<Value>>, store: Foundation.UserDefaults? = nil) where Value.RawValue : SharingKeys.RawRepresentableAppStorageKeyCompatible
+}
+extension Sharing.Shared where Value : Swift.Sendable {
+  public init<Wrapped>(_ key: Swift.KeyPath<Sharing.AppStorageKey<Value>.Type, SharingKeysCore.StorageKeyEntry>, store: Foundation.UserDefaults? = nil) where Value == Wrapped?, Wrapped : SharingKeys.OptionallyAppStorageKeyCompatible, Wrapped : Swift.Sendable
+  public init<Wrapped>(_ key: Swift.KeyPath<Sharing.AppStorageKey<Value>.Type, SharingKeysCore.StorageKeyEntry.Strict<Value>>, store: Foundation.UserDefaults? = nil) where Value == Wrapped?, Wrapped : SharingKeys.OptionallyAppStorageKeyCompatible, Wrapped : Swift.Sendable
+  public init<Wrapped>(_ key: Swift.KeyPath<Sharing.AppStorageKey<Value>.Type, SharingKeysCore.StorageKeyEntry>, store: Foundation.UserDefaults? = nil) where Value == Wrapped?, Wrapped : Swift.RawRepresentable, Wrapped : Swift.Sendable, Wrapped.RawValue : SharingKeys.OptionallyRawRepresentableAppStorageKeyCompatible
+  public init<Wrapped>(_ key: Swift.KeyPath<Sharing.AppStorageKey<Value>.Type, SharingKeysCore.StorageKeyEntry.Strict<Value>>, store: Foundation.UserDefaults? = nil) where Value == Wrapped?, Wrapped : Swift.RawRepresentable, Wrapped : Swift.Sendable, Wrapped.RawValue : SharingKeys.OptionallyRawRepresentableAppStorageKeyCompatible
+}
+extension Sharing.SharedReaderKey {
+  public static func appStorage<Value>(_ keyPath: SharingKeysCore.AppStorageKeys.EntryKeyPath, store: Foundation.UserDefaults? = nil) -> Self where Self == Sharing.AppStorageKey<Value>, Value : SharingKeys.AppStorageKeyCompatible, Value : Swift.Sendable
+  public static func appStorage<Value>(_ keyPath: SharingKeysCore.AppStorageKeys.EntryKeyPath, store: Foundation.UserDefaults? = nil) -> Self where Self == Sharing.AppStorageKey<Value>, Value : Swift.RawRepresentable, Value : Swift.Sendable, Value.RawValue : SharingKeys.RawRepresentableAppStorageKeyCompatible
+  public static func appStorage<Value>(_ keyPath: SharingKeysCore.AppStorageKeys.EntryKeyPath, store: Foundation.UserDefaults? = nil) -> Self where Self == Sharing.AppStorageKey<Value?>, Value : Swift.RawRepresentable, Value : Swift.Sendable, Value.RawValue : SharingKeys.OptionallyRawRepresentableAppStorageKeyCompatible
+  public static func appStorage<Value>(_ keyPath: SharingKeysCore.AppStorageKeys.StrictEntryKeyPath<Value>, store: Foundation.UserDefaults? = nil) -> Self where Self == Sharing.AppStorageKey<Value>, Value : SharingKeys.AppStorageKeyCompatible, Value : Swift.Sendable
+  public static func appStorage<Value>(_ keyPath: SharingKeysCore.AppStorageKeys.StrictEntryKeyPath<Value>, store: Foundation.UserDefaults? = nil) -> Self where Self == Sharing.AppStorageKey<Value>, Value : Swift.RawRepresentable, Value : Swift.Sendable, Value.RawValue : SharingKeys.RawRepresentableAppStorageKeyCompatible
+  public static func appStorage<Value>(_ keyPath: SharingKeysCore.AppStorageKeys.StrictEntryKeyPath<Value>, store: Foundation.UserDefaults? = nil) -> Self where Self == Sharing.AppStorageKey<Value?>, Value : Swift.RawRepresentable, Value : Swift.Sendable, Value.RawValue : SharingKeys.OptionallyRawRepresentableAppStorageKeyCompatible
+}
+extension Sharing.InMemoryKey {
+  public static var inMemory: SharingKeysCore.StorageKeyBuilder<SharingKeysCore.InMemoryStorageKeys> {
+    get
+  }
+  public static subscript(keyPath: Swift.KeyPath<Sharing.InMemoryKey<Value>.Type, SharingKeysCore.StorageKeyEntry>) -> Swift.String {
+    get
+  }
+  public static subscript(keyPath: Swift.KeyPath<Sharing.InMemoryKey<Value>.Type, SharingKeysCore.StorageKeyEntry.Strict<Value>>) -> Swift.String {
+    get
+  }
+}
+extension Sharing.Shared where Value : Swift.Sendable {
+  public init(wrappedValue: Value, _ key: Swift.KeyPath<Sharing.InMemoryKey<Value>.Type, SharingKeysCore.StorageKeyEntry>)
+  public init(wrappedValue: Value, _ key: Swift.KeyPath<Sharing.InMemoryKey<Value>.Type, SharingKeysCore.StorageKeyEntry.Strict<Value>>)
+}
+extension Sharing.SharedReaderKey {
+  public static func inMemory<Value>(_ keyPath: SharingKeysCore.InMemoryStorageKeys.EntryKeyPath) -> Self where Self == Sharing.InMemoryKey<Value>, Value : Swift.Sendable
+  public static func inMemory<Value>(_ keyPath: SharingKeysCore.InMemoryStorageKeys.StrictEntryKeyPath<Value>) -> Self where Self == Sharing.InMemoryKey<Value>, Value : Swift.Sendable
+}
+extension Swift.Int : SharingKeys.AppStorageKeyCompatible {}
+extension Swift.Int : SharingKeys.OptionallyAppStorageKeyCompatible {}
+extension Swift.Int : SharingKeys.OptionallyRawRepresentableAppStorageKeyCompatible {}
+extension Swift.Int : SharingKeys.RawRepresentableAppStorageKeyCompatible {}
+extension Swift.String : SharingKeys.AppStorageKeyCompatible {}
+extension Swift.String : SharingKeys.OptionallyAppStorageKeyCompatible {}
+extension Swift.String : SharingKeys.OptionallyRawRepresentableAppStorageKeyCompatible {}
+extension Swift.String : SharingKeys.RawRepresentableAppStorageKeyCompatible {}
