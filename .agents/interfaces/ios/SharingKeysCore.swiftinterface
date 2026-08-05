@@ -1,0 +1,67 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.3.3 (swiftlang-6.3.3.1.3 clang-2100.1.1.101)
+// swift-module-flags: -target arm64-apple-ios13.0-simulator -enable-objc-interop -swift-version 6 -O -module-name SharingKeysCore -package-name swift_sharing_extensions
+// swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.3.3
+import Casification
+import Swift
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public struct StorageKeyBuilder<Domain> {
+  public typealias Subdomain<Child> = SharingKeysCore.StorageKeyBuilder<Child>
+  public typealias Entry = SharingKeysCore.StorageKeyEntry
+  public var rawValue: Swift.String
+}
+extension SharingKeysCore.StorageKeyBuilder {
+  public func subdomain<Child>(_ key: Swift.String = #function, format modifier: any Swift.String.Transformer = .snake, separator: Swift.String = "-") -> SharingKeysCore.StorageKeyBuilder<Domain>.Subdomain<Child>
+  @inlinable public func entry<T>(_ key: Swift.String = #function, format modifier: any Swift.String.Transformer = .snake, separator: Swift.String = "-") -> SharingKeysCore.StorageKeyEntry.Strict<T> {
+		let base: Entry = entry(key, format: modifier, separator: separator)
+		return .init(rawValue: base.rawValue)
+	}
+  @inlinable public func entry(_ key: Swift.String = #function, format modifier: any Swift.String.Transformer = .snake, separator: Swift.String = "-") -> SharingKeysCore.StorageKeyBuilder<Domain>.Entry {
+		let value = join(rawValue, key.case(modifier), separator: separator)
+		return .init(rawValue: value)
+	}
+  @usableFromInline
+  internal func join(_ key1: Swift.String, _ key2: Swift.String, separator: Swift.String) -> Swift.String
+}
+public struct StorageKeyEntry : Swift.ExpressibleByStringLiteral {
+  public let rawValue: Swift.String
+  @inlinable public init(stringLiteral value: Swift.String) {
+		self.init(rawValue: value)
+	}
+  public init(rawValue: Swift.String)
+  public struct Strict<Value> : Swift.ExpressibleByStringLiteral {
+    public let rawValue: Swift.String
+    @inlinable public init(stringLiteral value: Swift.String) {
+			self.init(rawValue: value)
+		}
+    public init(rawValue: Swift.String)
+    public typealias ExtendedGraphemeClusterLiteralType = Swift.String
+    public typealias StringLiteralType = Swift.String
+    public typealias UnicodeScalarLiteralType = Swift.String
+  }
+  public typealias ExtendedGraphemeClusterLiteralType = Swift.String
+  public typealias StringLiteralType = Swift.String
+  public typealias UnicodeScalarLiteralType = Swift.String
+}
+public protocol StorageKeysTopLevelDomainProtocol : Swift.Sendable {
+  typealias EntryKeyPath = Swift.KeyPath<SharingKeysCore.StorageKeyBuilder<Self>, SharingKeysCore.StorageKeyEntry>
+  typealias StrictEntryKeyPath<Value> = Swift.KeyPath<SharingKeysCore.StorageKeyBuilder<Self>, SharingKeysCore.StorageKeyEntry.Strict<Value>>
+  typealias Builder<Domain> = SharingKeysCore.StorageKeyBuilder<Domain>
+  static subscript(keyPath: Self.EntryKeyPath) -> Swift.String { get }
+  static subscript<T>(keyPath: Self.StrictEntryKeyPath<T>) -> Swift.String { get }
+}
+extension SharingKeysCore.StorageKeysTopLevelDomainProtocol {
+  public static subscript(keyPath: Self.EntryKeyPath) -> Swift.String {
+    get
+  }
+  public static subscript<Value>(keyPath: Self.StrictEntryKeyPath<Value>) -> Swift.String {
+    get
+  }
+  public func subdomain<Child>(_ key: Swift.String = #function, format modifier: any Swift.String.Transformer = .snake, separator: Swift.String = "-") -> Self.Builder<Child>
+}
+public enum InMemoryStorageKeys : SharingKeysCore.StorageKeysTopLevelDomainProtocol {
+}
+public enum AppStorageKeys : SharingKeysCore.StorageKeysTopLevelDomainProtocol {
+}
