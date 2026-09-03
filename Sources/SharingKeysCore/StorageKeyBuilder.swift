@@ -20,7 +20,7 @@ public struct StorageKeyBuilder<Domain> {
 extension StorageKeyBuilder {
 	public func subdomain<Child>(
 		_ key: String = #function,
-		format modifier: String.Casification.Modifier = .snake,
+		format modifier: String.Casification.Modifier = .storageKey,
 		separator: String = "-"
 	) -> Subdomain<Child> {
 		let value = join(rawValue, key.case(modifier), separator: separator)
@@ -30,7 +30,7 @@ extension StorageKeyBuilder {
 	@inlinable
 	public func entry<T>(
 		_ key: String = #function,
-		format modifier: String.Casification.Modifier = .snake,
+		format modifier: String.Casification.Modifier = .storageKey,
 		separator: String = "-"
 	) -> Entry.Strict<T> {
 		let base: Entry = entry(key, format: modifier, separator: separator)
@@ -40,7 +40,7 @@ extension StorageKeyBuilder {
 	@inlinable
 	public func entry(
 		_ key: String = #function,
-		format modifier: String.Casification.Modifier = .snake,
+		format modifier: String.Casification.Modifier = .storageKey,
 		separator: String = "-"
 	) -> Entry {
 		let value = join(rawValue, key.case(modifier), separator: separator)

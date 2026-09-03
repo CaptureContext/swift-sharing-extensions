@@ -20,7 +20,7 @@ extension StorageKeysTopLevelDomainProtocol {
 
 	public func subdomain<Child>(
 		_ key: String = #function,
-		format modifier: String.Casification.Modifier = .snake,
+		format modifier: String.Casification.Modifier = .storageKey,
 		separator: String = "-"
 	) -> Builder<Child> {
 		return Builder<Self>(rawValue: "")
