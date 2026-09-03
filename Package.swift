@@ -26,14 +26,12 @@ let package = Package(
 	],
 	dependencies: [
 		.package(
-			path: "../swift-sharing",
-			// url: "https://github.com/pointfreeco/swift-sharing.git",
-			// .upToNextMajor(from: "2.5.0")
+			url: "https://github.com/pointfreeco/swift-sharing.git",
+			.upToNextMajor(from: "2.10.1")
 		),
 		.package(
-			path: "../swift-casification",
-			// url: "https://github.com/capturecontext/swift-casification.git",
-			// .upToNextMinor(from: "0.0.1")
+			url: "https://github.com/capturecontext/swift-casification.git",
+			.upToNextMinor(from: "0.7.0")
 		),
 	],
 	targets: [
